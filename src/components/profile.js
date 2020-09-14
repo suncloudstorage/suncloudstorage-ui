@@ -2,8 +2,36 @@ import React, {Component} from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import {Upload, Download, Pencil, Cart3} from "react-bootstrap-icons"
+import {Redirect} from "react-router-dom";
+import userService from "../services/userService";
 
 class Profile extends Component {
+
+    constructor(props) {
+        super(props);
+        if (!localStorage.getItem("username")) {
+            return <Redirect to="/login"/>
+        }
+
+        this.state = {
+            firstName: '',
+            lastName: '',
+            username: '',
+            email: ''
+        }
+
+        userService.getUser(localStorage.getItem("username")).then(resp => {
+            let resp1 = resp;
+            this.setState({
+                firstName: resp1.data.firstName,
+                lastName: resp1.data.lastName,
+                username: resp1.data.username,
+                email: resp1.data.email
+            })
+            console.log(resp)
+        }).then(err => console.log(err))
+    }
+
     render() {
         return (
             <div>
@@ -15,7 +43,7 @@ class Profile extends Component {
                                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin"
                                          className="rounded-circle" width="150"/>
                                     <div className="mt-3">
-                                        <h4>John Doe</h4>
+                                        <h4>{this.state.firstName} {this.state.lastName}</h4>
                                         <p className="text-secondary mb-1">Full Stack Developer</p>
                                         <p className="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
                                         <button className="btn btn-primary">Follow</button>
@@ -31,7 +59,7 @@ class Profile extends Component {
                                         <h6 className="mb-0">Full Name</h6>
                                     </div>
                                     <div className="col-sm-9 text-secondary">
-                                        Kenneth Valdez
+                                        {this.state.firstName} {this.state.lastName}
                                     </div>
                                 </div>
                                 <hr/>
@@ -40,7 +68,7 @@ class Profile extends Component {
                                         <h6 className="mb-0">Username</h6>
                                     </div>
                                     <div className="col-sm-9 text-secondary">
-                                        fip@jukmuh.al
+                                        {this.state.username}
                                     </div>
                                 </div>
                                 <hr/>
@@ -49,7 +77,7 @@ class Profile extends Component {
                                         <h6 className="mb-0">Email</h6>
                                     </div>
                                     <div className="col-sm-9 text-secondary">
-                                        fip@jukmuh.al
+                                        {this.state.email}
                                     </div>
                                 </div>
                                 <hr/>

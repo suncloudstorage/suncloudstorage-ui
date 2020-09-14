@@ -5,12 +5,16 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Header from "./components/header";
 import Footer from "./components/footer";
+import history from "./utils/history";
+import {Router} from "react-router-dom";
 
 ReactDOM.render(
     <React.StrictMode>
-        <Header/>
-        <App/>
-        <Footer/>
+        <Router history={history}>
+            <Header/>
+            <App/>
+            <Footer/>
+        </Router>
     </React.StrictMode>,
     document.getElementById('root')
 );

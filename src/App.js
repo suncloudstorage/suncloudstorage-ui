@@ -6,19 +6,19 @@ import Main from "./components/main";
 import Profile from "./components/profile";
 import Registration from "./components/registration";
 import Login from "./components/login";
+import Disk from "./components/disk";
 import NotFound from "./components/notFound";
 
 function App() {
     return (
-        <Router history={history}>
-            <Switch>
-                <Route path="/" component={Main} exact/>
-                <Route path="/profile" component={Profile}/>
-                <Route path="/registration" component={Registration}/>
-                <Route path="/login" component={Login}/>
-                <Route path="*" component={NotFound}/>
-            </Switch>
-        </Router>
+        <Switch>
+            <Route path="/" component={Main} exact/>
+            <Route path="/profile" component={Profile}/>
+            <Route path="/registration" component={Registration}/>
+            <Route path="/login" component={Login}/>
+            <Route path="/disk" component={Disk}/>
+            <Route path="*" component={NotFound}/>
+        </Switch>
     );
 }
 

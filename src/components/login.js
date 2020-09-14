@@ -3,8 +3,10 @@ import {Container} from "react-bootstrap";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import './login.css';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import UserService from "../services/userService";
+import jwt from 'jsonwebtoken'
+import history from "../utils/history";
 
 class Login extends Component {
 
@@ -29,14 +31,22 @@ class Login extends Component {
         e.preventDefault();
         UserService.login(this.state.username, this.state.password)
             .then(resp => {
-                if (resp.data.accessToken) {
-                    localStorage.setItem("accessToken", resp.data.accessToken)
+                const token = resp.data.accessToken;
+                if (token) {
+                    localStorage.setItem("accessToken", token)
+                    let decodedToken = jwt.decode(token);
+                    localStorage.setItem("username", decodedToken.sub)
+                    localStorage.setItem("role", decodedToken.role)
+                    history.go("/profile")
                 }
             })
             .then(err => console.log(err))
     }
 
     render() {
+        if (localStorage.getItem("username")) {
+            return <Redirect to="/profile"/>
+        }
         return (
             <Container>
                 <Row>
