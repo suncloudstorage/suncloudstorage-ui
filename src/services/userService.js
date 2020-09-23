@@ -3,6 +3,7 @@ import history from "../utils/history";
 
 class UserService {
     baseUrl = 'http://localhost:8080';
+
     downloadHeader = {
         responseType: 'blob',
         headers: {
@@ -11,13 +12,21 @@ class UserService {
         }
     }
 
-    accessHeader = {
+    uploadHeader = {
         headers: {
+            'Content-Type': 'multipart/form-data',
             'Access-Control-Allow-Origin': '*',
             'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }
     }
 
+    accessHeader = {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Access-Control-Allow-Origin': '*',
+            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        }
+    }
 
     login(username, password) {
         return axios.post(`${this.baseUrl}/api/v1/auth/login`, {username, password})
@@ -31,6 +40,10 @@ class UserService {
 
     downloadFile = (filename) => {
         return axios.get(`${this.baseUrl}/storage/downloadFile?url=s3://${localStorage.getItem("username")}/${filename}`, this.downloadHeader);
+    }
+
+    deleteFile = (filename) => {
+        axios.delete(`${this.baseUrl}/storage/deleteFile?url=s3://${localStorage.getItem("username")}/${filename}`, this.uploadHeader).then(resp => console.log(resp)).then(err => console.log(err))
     }
 
     getUser(username) {
