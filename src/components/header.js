@@ -2,8 +2,6 @@ import React, {Component} from "react";
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Dropdown from "react-bootstrap/Dropdown";
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import {Archive, ArrowRightSquare, Envelope, Gear, PersonCircle} from 'react-bootstrap-icons';
@@ -14,7 +12,7 @@ class Header extends Component {
 
     render() {
         return (
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
                 <Navbar.Brand href="/">Sun Cloud Storage</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
                 <Navbar.Collapse id="responsive-navbar-nav" className="d-flex justify-content-between">
@@ -23,18 +21,12 @@ class Header extends Component {
                         <Nav.Link href="/starts">Getting started</Nav.Link>
                         <Nav.Link href="/price">Pricing</Nav.Link>
                     </Nav>
-                    <Nav>
-                        <Form inline>
-                            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                            <Button variant="light">Search</Button>
-                        </Form>
-                    </Nav>
                     {localStorage.getItem("username")
                         ? <Nav>
                             <DropdownButton
                                 alignRight
                                 variant="none"
-                                title={<PersonCircle color="white" size="32"/>}
+                                title={<PersonCircle color="black" size="32"/>}
                                 id="dropdown-menu-align-right"
                             >
                                 <Dropdown.Header>Signed in

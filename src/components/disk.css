@@ -1,0 +1,28 @@
+.nav-links {
+    font-size: 1.25rem;
+}
+
+.disk-nav-link.nav-link:hover {
+    color: #030303;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: #f8f8f8 !important;
+}
+
+.disk-nav-link.nav-link.active {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: #f8f8f8 !important;
+}
+
+.upload-button {
+    border-radius: 50%;
+    border: none;
+}
+
+.disk-nav-link {
+    color: #030303;
+    width: 200px;
+}
+
+

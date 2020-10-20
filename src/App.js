@@ -8,17 +8,21 @@ import Registration from "./components/registration";
 import Login from "./components/login";
 import Disk from "./components/disk";
 import NotFound from "./components/notFound";
+import MyDisk from "./components/MyDisk";
 
 function App() {
     return (
-        <Switch>
-            <Route path="/" component={Main} exact/>
-            <Route path="/profile" component={Profile}/>
-            <Route path="/registration" component={Registration}/>
-            <Route path="/login" component={Login}/>
-            <Route path="/disk" component={Disk}/>
-            <Route path="*" component={NotFound}/>
-        </Switch>
+        <Router history={history}>
+            <Switch>
+                <Route path="/" component={Main} exact/>
+                <Route path="/profile" component={Profile}/>
+                <Route path="/registration" component={Registration}/>
+                <Route path="/login" component={Login}/>
+                <Route path="/disk" component={Disk}/>
+                <Route path="/myDisk" component={MyDisk}/>
+                <Route path="*" component={NotFound}/>
+            </Switch>
+        </Router>
     );
 }
 

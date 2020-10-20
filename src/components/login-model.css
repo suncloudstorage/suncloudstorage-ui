@@ -1,0 +1,14 @@
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.modal-content {
+    border-radius: 22px;
+    padding: 20px;
+}
+
+.modal-body {
+    padding-top: 15px;
+}

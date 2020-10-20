@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import {Upload, Download, Pencil, Cart3} from "react-bootstrap-icons"
 import {Redirect} from "react-router-dom";
 import userService from "../services/userService";
+import Header from "./header";
 
 class Profile extends Component {
 
@@ -35,6 +36,7 @@ class Profile extends Component {
     render() {
         return (
             <div>
+                <Header/>
                 <Container>
                     <Row>
                         <div className="card col-4 m-3">
