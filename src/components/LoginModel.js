@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import './login-model.css';
+import './LoginModel.css';
 import authService from "../services/authService";
 
 class LoginModel extends Component {

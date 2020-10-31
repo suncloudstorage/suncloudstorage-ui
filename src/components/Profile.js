@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import {Upload, Download, Pencil, Cart3} from "react-bootstrap-icons"
 import {Redirect} from "react-router-dom";
 import userService from "../services/userService";
-import Header from "./header";
+import Header from "./Header";
 
 class Profile extends Component {
 

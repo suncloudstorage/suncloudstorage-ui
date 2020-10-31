@@ -4,12 +4,14 @@ import saveAs from 'file-saver';
 import "./FileContextMenu.css";
 import userService from "../services/userService";
 import {CloudDownload, Trash, Pencil} from 'react-bootstrap-icons';
+import authService from "../services/authService";
+import fileService from "../services/fileService";
 
 class MyFile extends Component {
 
     downloadFile(filename) {
         console.log("filename", filename)
-        userService.downloadFile(filename).then(response => {
+        fileService.downloadFile(filename).then(response => {
             let url = response.config.url;
             saveAs(response.data, url.slice(url.lastIndexOf("/") + 1));
         })
@@ -17,7 +19,7 @@ class MyFile extends Component {
 
     deleteFile(filename) {
         console.log("filename", filename)
-        userService.deleteFile(filename)
+        fileService.deleteFile(filename)
     }
 
     handleClick = (e, data) => {
@@ -29,8 +31,8 @@ class MyFile extends Component {
             }
             case 'Delete': {
                 console.log('Delete')
-                userService.deleteFile(this.props.file.name + '.' + this.props.file.extension)
-                window.location.reload();
+                fileService.deleteFile(this.props.file.name + '.' + this.props.file.extension)
+                this.props.removeFileInState(this.props.file.name)
                 break;
             }
             case 'Rename': {
@@ -47,8 +49,8 @@ class MyFile extends Component {
         return (
             <div className="card col-2 p-4 mr-4 mb-4">
                 <ContextMenuTrigger id={"same_unique_identifier" + this.props.index}>
-                    <img src="microsoft-word.png" className="card-img-top w-100 d-block" alt="image"/>
-                    <h4 className="card-title text-center">{this.props.file.name + this.props.index}</h4>
+                    <img src={'icons/' + this.getIconByExtension()} className="card-img-top w-100 d-block" alt="image"/>
+                    <h4 className="card-title text-center">{this.props.file.name + '.' + this.props.file.extension}</h4>
                 </ContextMenuTrigger>
 
                 <ContextMenu id={"same_unique_identifier" + this.props.index}>
@@ -64,6 +66,30 @@ class MyFile extends Component {
                 </ContextMenu>
             </div>
         )
+    }
+
+    getIconByExtension() {
+        let extension = this.props.file.extension;
+
+        if (['png', 'jpg', 'jpeg'].includes(extension)) {
+            return 'image.png'
+        } else if ('pdf' === extension) {
+            return 'pdf.png'
+        } else if (['doc', 'docx'].includes(extension)) {
+            return 'word.png'
+        } else if (['xls', 'xlsx'].includes(extension)) {
+            return 'excel.png'
+        } else if ('txt' === extension) {
+            return 'text.png'
+        } else if ('mp3' === extension){
+            return 'audio.png'
+        } else if ('mp4' === extension){
+            return 'video.png'
+        } else {
+            return 'unknown.png'
+        }
+
+        return "";
     }
 }
 

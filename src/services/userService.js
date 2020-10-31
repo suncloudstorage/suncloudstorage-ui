@@ -1,24 +1,8 @@
 import axios from "axios";
-import history from "../utils/history";
+import config from 'config';
 
 class UserService {
     baseUrl = 'http://localhost:8080';
-
-    downloadHeader = {
-        responseType: 'blob',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
-    }
-
-    uploadHeader = {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
-    }
 
     accessHeader = {
         headers: {
@@ -28,26 +12,8 @@ class UserService {
         }
     }
 
-    login(username, password) {
-        return axios.post(`${this.baseUrl}/api/v1/auth/login`, {username, password})
-    }
-
-    logout() {
-        localStorage.clear();
-        sessionStorage.clear();
-        history.go("/login")
-    }
-
-    downloadFile = (filename) => {
-        return axios.get(`${this.baseUrl}/storage/downloadFile?url=s3://${localStorage.getItem("username")}/${filename}`, this.downloadHeader);
-    }
-
-    deleteFile = (filename) => {
-        axios.delete(`${this.baseUrl}/storage/deleteFile?url=s3://${localStorage.getItem("username")}/${filename}`, this.uploadHeader).then(resp => console.log(resp)).then(err => console.log(err))
-    }
-
     getUser(username) {
-        return axios.get(`${this.baseUrl}/users/${username}`, this.accessHeader)
+        return axios.get(`${config.apiUrl}/users/${username}`, this.accessHeader)
     }
 }
 

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import Header from "./header";
+import Header from "./Header";
 import {Link, Redirect} from "react-router-dom";
 import MyFile from "./MyFile";
 import fileService from "../services/fileService";
@@ -17,22 +17,34 @@ class MyDisk extends Component {
         this.onChange = this.onChange.bind(this);
         this.searchFile = this.searchFile.bind(this);
         this.changeSort = this.changeSort.bind(this);
+        this.removeFileInState = this.removeFileInState.bind(this);
+        this.handleUploadFile = this.handleUploadFile.bind(this);
     }
 
-    handleUploadFile = (event) => {
+    handleUploadFile(event) {
         const data = new FormData();
-        data.append('file', event.target.files[0]);
-        data.append('name', 'my_file');
-        data.append('description', 'this file is uploaded by young padawan');
-        fileService.uploadFile(data).then((response) => {
-        }).catch(function (error) {
-            if (error.response) {
-                console.log("Upload error. HTTP error/status code=", error.response.status);
-            } else {
-                console.log("Upload error. HTTP error/status code=", error.message);
+        let file = event.target.files[0];
+        if (!file){
+            return;
+        }
+        data.append('file', file);
+        fileService.uploadFile(data).then(response => {
+            let files = this.state.files;
+            let createdFile = {
+                bucketName: localStorage.getItem("username"),
+                extension: file.name.substring(file.name.lastIndexOf('.') + 1),
+                lastModified: file.lastModified,
+                name: file.name.substring(0, file.name.lastIndexOf('.')),
+                size:file.size
             }
+            files.push(createdFile)
+            this.setState({
+                files
+            })
+        }).catch(error => {
+            console.log(error)
         });
-        window.location.reload();
+
     };
 
     componentDidMount() {
@@ -69,10 +81,13 @@ class MyDisk extends Component {
                 break;
             }
             case ("newestTop"): {
+                files = files.sort((a, b) => a.lastModified.localeCompare(b.lastModified));
                 break;
             }
             case ("olderTop"): {
-                break
+                let sortedFiles = files.sort((a, b) => a.lastModified.localeCompare(b.lastModified));
+                files = sortedFiles.reverse();
+                break;
             }
             default: {
                 break
@@ -80,6 +95,13 @@ class MyDisk extends Component {
         }
         this.setState({
             files: files
+        })
+    }
+
+    removeFileInState(name) {
+        let files = this.state.files.filter(file => file.name !== name);
+        this.setState({
+            files
         })
     }
 
@@ -163,10 +185,12 @@ class MyDisk extends Component {
                                 <div className="row">
                                     {this.state.filteredFiles.length !== 0
                                         ? this.state.filteredFiles.map((file, index) =>
-                                            <MyFile file={file} index={index} key={index}/>
+                                            <MyFile file={file} index={index} key={index}
+                                                    removeFileInState={this.removeFileInState}/>
                                         )
                                         : this.state.files.map((file, index) =>
-                                            <MyFile file={file} index={index} key={index}/>
+                                            <MyFile file={file} index={index} key={index}
+                                                    removeFileInState={this.removeFileInState}/>
                                         )}
                                 </div>
                             </div>

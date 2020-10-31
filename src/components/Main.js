@@ -2,13 +2,13 @@ import React, {Component} from "react";
 import {Swiper, SwiperSlide} from 'swiper/react';
 import SwiperCore, {Autoplay} from 'swiper'
 import {Link, Redirect} from "react-router-dom";
-import LoginModel from "./login-model";
+import LoginModel from "./LoginModel";
 import 'swiper/swiper-bundle.css';
-import './main.css';
-import './footer.css';
+import './Main.css';
+import './Footer.css';
 import './Navigation-with-Button.css';
 import './Simple-Slider.css';
-import Footer from "./footer";
+import Footer from "./Footer";
 
 SwiperCore.use([Autoplay]);
 
@@ -47,9 +47,9 @@ class Main extends Component {
                                 spaceBetween={50}
                                 slidesPerView={1}
                             >
-                                <SwiperSlide data-swiper-autoplay="2000"><img src="first.png" alt=""/></SwiperSlide>
-                                <SwiperSlide data-swiper-autoplay="2000"><img src="second.png" alt=""/></SwiperSlide>
-                                <SwiperSlide data-swiper-autoplay="2000"><img src="third.png" alt=""/></SwiperSlide>
+                                <SwiperSlide data-swiper-autoplay="2000"><img src="slider/first.png" alt=""/></SwiperSlide>
+                                <SwiperSlide data-swiper-autoplay="2000"><img src="slider/second.png" alt=""/></SwiperSlide>
+                                <SwiperSlide data-swiper-autoplay="2000"><img src="slider/third.png" alt=""/></SwiperSlide>
                             </Swiper>
                         </div>
                         <div className="col-md-4">

@@ -7,6 +7,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import {Archive, ArrowRightSquare, Envelope, Gear, PersonCircle} from 'react-bootstrap-icons';
 import {Link} from "react-router-dom";
 import userService from "../services/userService";
+import authService from "../services/authService";
 
 class Header extends Component {
 
@@ -36,7 +37,7 @@ class Header extends Component {
                                 <Dropdown.Item eventKey="2" href="/disk"><Archive/> Your files</Dropdown.Item>
                                 <Dropdown.Divider/>
                                 <Dropdown.Item eventKey="3" href="/settings"><Gear/> Settings</Dropdown.Item>
-                                <Dropdown.Item eventKey="4" onClick={userService.logout}><ArrowRightSquare/> Logout</Dropdown.Item>
+                                <Dropdown.Item eventKey="4" onClick={authService.logout}><ArrowRightSquare/> Logout</Dropdown.Item>
                             </DropdownButton>
                         </Nav>
                         : <Nav>
