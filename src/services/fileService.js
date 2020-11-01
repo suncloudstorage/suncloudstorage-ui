@@ -1,4 +1,3 @@
-import config from 'config';
 import axios from "axios";
 
 class FileService {
@@ -36,26 +35,26 @@ class FileService {
     }
 
     getFiles() {
-        return axios.get(`${config.apiUrl}/storage/files`, this.accessHeader)
+        return axios.get(`${this.baseUrl}/storage/files`, this.accessHeader)
     }
 
     uploadFile(data) {
-        return axios.post(`${config.apiUrl}/storage/uploadFile`, data, this.loadFileHeader)
+        return axios.post(`${this.baseUrl}/storage/uploadFile`, data, this.loadFileHeader)
     }
 
-    editFileName(newFileName, oldFileName) {
+    editFileName(newName, oldName) {
         let data = {
-            newFileName, oldFileName
+            newName, oldName
         }
-        axios.post(`${config.apiUrl}/storage/editFileName`, data, this.accessHeader)
+        return axios.post(`${this.baseUrl}/storage/editFileName`, data, this.accessHeader)
     }
 
     downloadFile = (filename) => {
-        return axios.get(`${config.apiUrl}/storage/downloadFile?url=s3://${localStorage.getItem("username")}/${filename}`, this.downloadHeader);
+        return axios.get(`${this.baseUrl}/storage/downloadFile?url=s3://${localStorage.getItem("username")}/${filename}`, this.downloadHeader);
     }
 
     deleteFile = (filename) => {
-        axios.delete(`${config.apiUrl}/storage/deleteFile?url=s3://${localStorage.getItem("username")}/${filename}`, this.uploadHeader).then(resp => console.log(resp)).then(err => console.log(err))
+        axios.delete(`${this.baseUrl}/storage/deleteFile?url=s3://${localStorage.getItem("username")}/${filename}`, this.uploadHeader).then(resp => console.log(resp)).then(err => console.log(err))
     }
 }
 

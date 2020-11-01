@@ -1,13 +1,16 @@
 import React, {Component} from "react";
-import {ContextMenuTrigger, MenuItem, ContextMenu} from "react-contextmenu";
+import {ContextMenu, ContextMenuTrigger, MenuItem} from "react-contextmenu";
 import saveAs from 'file-saver';
 import "./FileContextMenu.css";
-import userService from "../services/userService";
-import {CloudDownload, Trash, Pencil} from 'react-bootstrap-icons';
-import authService from "../services/authService";
+import {CloudDownload, Pencil, Trash} from 'react-bootstrap-icons';
 import fileService from "../services/fileService";
+import RenameFile from "./RenameFile";
 
 class MyFile extends Component {
+
+    constructor(props) {
+        super(props);
+    }
 
     downloadFile(filename) {
         console.log("filename", filename)
@@ -36,7 +39,10 @@ class MyFile extends Component {
                 break;
             }
             case 'Rename': {
-                console.log('Rename')
+                console.log('Rename', this.props.file.name)
+                document.getElementById("renameFileButton").click()
+                document.getElementById("renameFileInput").value = this.props.file.name;
+                document.getElementById("renameFileTitle").innerHTML = this.props.file.name + '.' + this.props.file.extension;
                 break;
             }
             default: {
@@ -49,7 +55,8 @@ class MyFile extends Component {
         return (
             <div className="card col-2 p-4 mr-4 mb-4">
                 <ContextMenuTrigger id={"same_unique_identifier" + this.props.index}>
-                    <img src={'icons/' + this.getIconByExtension()} className="card-img-top w-100 d-block" alt="image"/>
+                    <img src={'icons/' + this.getIconByExtension()} className="card-img-top w-100 d-block"
+                         alt="Icon for file"/>
                     <h4 className="card-title text-center">{this.props.file.name + '.' + this.props.file.extension}</h4>
                 </ContextMenuTrigger>
 
@@ -64,6 +71,13 @@ class MyFile extends Component {
                         <Trash/> Delete
                     </MenuItem>
                 </ContextMenu>
+                <button id="renameFileButton" hidden type="button" className="btn btn-primary" data-toggle="modal"
+                        data-target="#renameFile">
+                    Launch demo modal
+                </button>
+                <RenameFile renameFile={this.props.renameFile} />
+
+
             </div>
         )
     }
@@ -81,15 +95,13 @@ class MyFile extends Component {
             return 'excel.png'
         } else if ('txt' === extension) {
             return 'text.png'
-        } else if ('mp3' === extension){
+        } else if ('mp3' === extension) {
             return 'audio.png'
-        } else if ('mp4' === extension){
+        } else if ('mp4' === extension) {
             return 'video.png'
         } else {
             return 'unknown.png'
         }
-
-        return "";
     }
 }
 
