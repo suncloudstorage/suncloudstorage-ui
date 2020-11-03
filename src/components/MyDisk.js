@@ -19,12 +19,13 @@ class MyDisk extends Component {
         this.changeSort = this.changeSort.bind(this);
         this.removeFileInState = this.removeFileInState.bind(this);
         this.handleUploadFile = this.handleUploadFile.bind(this);
+        this.renameFile = this.renameFile.bind(this);
     }
 
     handleUploadFile(event) {
         const data = new FormData();
         let file = event.target.files[0];
-        if (!file){
+        if (!file) {
             return;
         }
         data.append('file', file);
@@ -35,7 +36,7 @@ class MyDisk extends Component {
                 extension: file.name.substring(file.name.lastIndexOf('.') + 1),
                 lastModified: file.lastModified,
                 name: file.name.substring(0, file.name.lastIndexOf('.')),
-                size:file.size
+                size: file.size
             }
             files.push(createdFile)
             this.setState({
@@ -48,12 +49,14 @@ class MyDisk extends Component {
     };
 
     componentDidMount() {
-        fileService.getFiles().then(resp => {
-            this.setState({
-                files: resp.data
+        fileService.getFiles()
+            .then(resp => {
+                this.setState({
+                    files: resp.data
+                })
+                console.log(resp)
             })
-            console.log(resp)
-        }).then(err => console.log(err));
+            .catch(err => console.log(err));
     }
 
     onChange(e) {
@@ -100,6 +103,20 @@ class MyDisk extends Component {
 
     removeFileInState(name) {
         let files = this.state.files.filter(file => file.name !== name);
+        this.setState({
+            files
+        })
+    }
+
+    renameFile(newName, oldName) {
+        let oldFileNameWithoutExtension = oldName.substring(0, oldName.lastIndexOf('.'));
+        let newFileNameWithoutExtension = newName.substring(0, newName.lastIndexOf('.'));
+        let files = this.state.files;
+        files.forEach(file => {
+            if (file.name.startsWith(oldFileNameWithoutExtension)) {
+                file.name = newFileNameWithoutExtension
+            }
+        });
         this.setState({
             files
         })
@@ -186,11 +203,15 @@ class MyDisk extends Component {
                                     {this.state.filteredFiles.length !== 0
                                         ? this.state.filteredFiles.map((file, index) =>
                                             <MyFile file={file} index={index} key={index}
-                                                    removeFileInState={this.removeFileInState}/>
+                                                    removeFileInState={this.removeFileInState}
+                                                    renameFile={this.renameFile}
+                                            />
                                         )
                                         : this.state.files.map((file, index) =>
                                             <MyFile file={file} index={index} key={index}
-                                                    removeFileInState={this.removeFileInState}/>
+                                                    removeFileInState={this.removeFileInState}
+                                                    renameFile={this.renameFile}
+                                            />
                                         )}
                                 </div>
                             </div>

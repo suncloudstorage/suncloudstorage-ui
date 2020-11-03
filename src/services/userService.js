@@ -1,8 +1,7 @@
 import axios from "axios";
-import config from 'config';
 
 class UserService {
-    baseUrl = 'http://localhost:8080';
+    baseUrl = 'http://ec2-52-14-241-156.us-east-2.compute.amazonaws.com:8080';
 
     accessHeader = {
         headers: {
@@ -13,7 +12,7 @@ class UserService {
     }
 
     getUser(username) {
-        return axios.get(`${config.apiUrl}/users/${username}`, this.accessHeader)
+        return axios.get(`${this.baseUrl}/users/${username}`, this.accessHeader)
     }
 }
 

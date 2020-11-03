@@ -6,7 +6,6 @@ import Button from "react-bootstrap/Button";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import {Archive, ArrowRightSquare, Envelope, Gear, PersonCircle} from 'react-bootstrap-icons';
 import {Link} from "react-router-dom";
-import userService from "../services/userService";
 import authService from "../services/authService";
 
 class Header extends Component {

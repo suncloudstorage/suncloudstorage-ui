@@ -1,14 +1,12 @@
 import axios from "axios";
 import history from "../utils/history";
 import jwt from "jsonwebtoken";
-import config from 'config';
 
 class UserService {
-    baseUrl = 'http://localhost:8080';
+    baseUrl = 'http://ec2-52-14-241-156.us-east-2.compute.amazonaws.com:8080';
 
     login(username, password) {
-        axios.post(`${config.apiUrl}/api/auth/login`, {username, password}).then(response => {
-                console.log(response)
+        axios.post(`${this.baseUrl}/api/auth/login`, {username, password}).then(response => {
                 const accessToken = response.data.accessToken;
                 if (accessToken) {
                     const decodedToken = jwt.decode(accessToken);
