@@ -3,7 +3,7 @@ import history from "../utils/history";
 import jwt from "jsonwebtoken";
 
 class UserService {
-    baseUrl = 'http://ec2-52-14-241-156.us-east-2.compute.amazonaws.com:8080';
+    baseUrl = 'http://ec2-3-20-234-98.us-east-2.compute.amazonaws.com:8080';
 
     login(username, password) {
         axios.post(`${this.baseUrl}/api/auth/login`, {username, password}).then(response => {

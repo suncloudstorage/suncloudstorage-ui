@@ -1,7 +1,7 @@
 import axios from "axios";
 
 class FileService {
-    baseUrl = 'http://ec2-52-14-241-156.us-east-2.compute.amazonaws.com:8080';
+    baseUrl = 'http://ec2-3-20-234-98.us-east-2.compute.amazonaws.com:8080';
 
     accessHeader = {
         headers: {
