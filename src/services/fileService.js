@@ -1,60 +1,40 @@
-import axios from "axios";
+import authInterceptor from "../interceptors/authInterceptor";
 
 class FileService {
-    baseUrl = 'http://localhost:8080';
 
-    accessHeader = {
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
-    }
-
-    loadFileHeader = {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
-    }
+    username = localStorage.getItem("username");
 
     downloadHeader = {
         responseType: 'blob',
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
     }
 
     uploadHeader = {
         headers: {
             'Content-Type': 'multipart/form-data',
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
         }
     }
 
     getFiles() {
-        return axios.get(`${this.baseUrl}/storage/files`, this.accessHeader)
+        return authInterceptor().get('/storage/files')
     }
 
     uploadFile(data) {
-        return axios.post(`${this.baseUrl}/storage/uploadFile`, data, this.loadFileHeader)
+        return authInterceptor().post('/storage/uploadFile', data, this.uploadHeader)
     }
 
     editFileName(newName, oldName) {
         let data = {
             newName, oldName
         }
-        return axios.post(`${this.baseUrl}/storage/editFileName`, data, this.accessHeader)
+        return authInterceptor().post('/storage/editFileName', data)
     }
 
     downloadFile = (filename) => {
-        return axios.get(`${this.baseUrl}/storage/downloadFile?url=s3://${localStorage.getItem("username")}/${filename}`, this.downloadHeader);
+        return authInterceptor().get(`/storage/downloadFile?url=s3://${this.username}/${filename}`, this.downloadHeader);
     }
 
     deleteFile = (filename) => {
-        axios.delete(`${this.baseUrl}/storage/deleteFile?url=s3://${localStorage.getItem("username")}/${filename}`, this.uploadHeader).then(resp => console.log(resp)).then(err => console.log(err))
+        return authInterceptor().delete(`/storage/deleteFile?url=s3://${this.username}/${filename}`);
     }
 }
 

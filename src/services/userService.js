@@ -1,18 +1,9 @@
-import axios from "axios";
+import authInterceptor from "../interceptors/authInterceptor";
 
 class UserService {
-    baseUrl = 'http://localhost:8080';
-
-    accessHeader = {
-        headers: {
-            'Content-Type': 'multipart/form-data',
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
-    }
 
     getUser(username) {
-        return axios.get(`${this.baseUrl}/users/${username}`, this.accessHeader)
+        return authInterceptor().get(`/users/${username}`)
     }
 }
 
