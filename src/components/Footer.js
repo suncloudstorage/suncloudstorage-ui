@@ -20,7 +20,7 @@ class Footer extends Component {
                         <li className="list-inline-item"><Link to="#">Terms</Link></li>
                         <li className="list-inline-item"><Link to="#">Privacy Policy</Link></li>
                     </ul>
-                    <p className="copyright">suncloud © 2020</p>
+                    <p className="copyright">suncloudstorage © 2020</p>
                 </footer>
             </div>
         )

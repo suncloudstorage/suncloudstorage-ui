@@ -1,27 +1,12 @@
-import axios from "axios";
 import history from "../utils/history";
-import jwt from "jsonwebtoken";
+import axiosInstance from '../interceptors/authInterceptor'
+import axios from "axios";
 
 class UserService {
-    baseUrl = 'http://ec2-3-20-234-98.us-east-2.compute.amazonaws.com:8080';
+    baseUrl = 'http://localhost:8080';
 
     login(username, password) {
-        axios.post(`${this.baseUrl}/api/auth/login`, {username, password}).then(response => {
-                const accessToken = response.data.accessToken;
-                if (accessToken) {
-                    const decodedToken = jwt.decode(accessToken);
-                    const username = decodedToken.sub;
-                    const role = decodedToken.role;
-                    localStorage.setItem('accessToken', accessToken);
-                    localStorage.setItem('username', username);
-                    localStorage.setItem('role', role);
-                    history.go('/myDisk');
-                }
-            },
-            error => {
-                console.log(error)
-            }
-        )
+        return axios.post(`${this.baseUrl}/api/auth/login`, {username, password})
     }
 
     logout() {

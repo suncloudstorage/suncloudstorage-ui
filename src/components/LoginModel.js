@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import './LoginModel.css';
 import authService from "../services/authService";
+import jwt from "jsonwebtoken";
+import history from "../utils/history";
 
 class LoginModel extends Component {
 
@@ -10,7 +12,9 @@ class LoginModel extends Component {
 
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            authError: false,
+            serverError: false
         }
 
         this.onSubmit = this.onSubmit.bind(this);
@@ -23,7 +27,31 @@ class LoginModel extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        authService.login(this.state.username, this.state.password)
+        authService.login(this.state.username, this.state.password).then(response => {
+                const accessToken = response.data.accessToken;
+                if (accessToken) {
+                    const decodedToken = jwt.decode(accessToken);
+                    const username = decodedToken.sub;
+                    const role = decodedToken.role;
+                    localStorage.setItem('accessToken', accessToken);
+                    localStorage.setItem('username', username);
+                    localStorage.setItem('role', role);
+                    history.go('/myDisk');
+                }
+            },
+            error => {
+                if (error.response.status === 403) {
+                    this.setState({
+                        authError: true
+                    })
+                } else {
+                    this.setState({
+                        serverError: true
+                    })
+                }
+                console.log(error)
+            }
+        )
     }
 
     render() {
@@ -35,6 +63,13 @@ class LoginModel extends Component {
                             <form>
                                 <h3 className="text-center">Sign in</h3>
                                 <div className="form-group pt-3">
+                                    {this.state.authError
+                                        ? <h6 className="text-danger text-center">Username or password invalid</h6>
+                                        : null}
+                                    {this.state.serverError
+                                        ? <h6 className="text-danger text-center">Server side error</h6>
+                                        : null}
+
                                     <input className="form-control email-signup"
                                            type="username"
                                            placeholder="Username"

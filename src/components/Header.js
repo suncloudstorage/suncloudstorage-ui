@@ -33,7 +33,7 @@ class Header extends Component {
                                     as: <strong>{localStorage.getItem("username")}</strong></Dropdown.Header>
                                 <Dropdown.Divider/>
                                 <Dropdown.Item eventKey="1" href="/profile"><Envelope/> Profile</Dropdown.Item>
-                                <Dropdown.Item eventKey="2" href="/disk"><Archive/> Your files</Dropdown.Item>
+                                <Dropdown.Item eventKey="2" href="/mydisk"><Archive/> Your files</Dropdown.Item>
                                 <Dropdown.Divider/>
                                 <Dropdown.Item eventKey="3" href="/settings"><Gear/> Settings</Dropdown.Item>
                                 <Dropdown.Item eventKey="4" onClick={authService.logout}><ArrowRightSquare/> Logout</Dropdown.Item>
