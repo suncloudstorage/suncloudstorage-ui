@@ -6,8 +6,6 @@ import LoginModel from "../login-model/login-model";
 import 'swiper/swiper-bundle.css';
 import './main.css';
 import '../footer/footer.css';
-// import './Navigation-with-Button.css';
-// import './Simple-Slider.css';
 import Footer from "../footer/footer";
 
 SwiperCore.use([Autoplay]);
@@ -29,7 +27,7 @@ class Main extends Component {
                              id="navcol-1">
                             <ul className="nav navbar-nav mr-auto">
                                 <li className="nav-item"/>
-                                <li className="nav-item"><Link className="nav-link" to="/price">Pricing1</Link></li>
+                                <li className="nav-item"><Link className="nav-link" to="/price">Pricing</Link></li>
                             </ul>
                             <span className="navbar-text actions">
                                 <button className="btn btn-light action-button"

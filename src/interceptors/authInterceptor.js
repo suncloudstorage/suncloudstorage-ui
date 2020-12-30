@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import authService from "../services/authService";
 
 export default () => {
-    const baseURL = 'http://localhost:8080/';
+    const baseURL = 'http://ec2-18-191-216-188.us-east-2.compute.amazonaws.com:8080/';
 
     let headers = {};
 
