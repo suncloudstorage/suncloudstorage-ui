@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import './LoginModel.css';
-import authService from "../services/authService";
+import './login-model.css';
+import authService from "../../services/authService";
 import jwt from "jsonwebtoken";
-import history from "../utils/history";
+import history from "../../utils/history";
 
 class LoginModel extends Component {
 

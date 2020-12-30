@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import fileService from "../services/fileService";
+import fileService from "../../services/fileService";
 
 class RenameFile extends Component {
 

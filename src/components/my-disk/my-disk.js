@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-import Header from "./Header";
+import Header from "../header/header";
 import {Link, Redirect} from "react-router-dom";
-import MyFile from "./MyFile";
-import fileService from "../services/fileService";
+import MyFile from "../my-file/my-file";
+import fileService from "../../services/fileService";
+import './my-disk.css'
 
 class MyDisk extends Component {
 

@@ -3,8 +3,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import {Upload, Download, Pencil, Cart3} from "react-bootstrap-icons"
 import {Redirect} from "react-router-dom";
-import userService from "../services/userService";
-import Header from "./Header";
+import userService from "../../services/userService";
+import Header from "../header/header";
 
 class Profile extends Component {
 

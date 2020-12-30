@@ -3,3 +3,8 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.list-group-item a {
+    color: black;
+    list-style: none;
+}

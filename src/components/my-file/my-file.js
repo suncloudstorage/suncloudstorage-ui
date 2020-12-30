@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import {ContextMenu, ContextMenuTrigger, MenuItem} from "react-contextmenu";
 import saveAs from 'file-saver';
-import "./FileContextMenu.css";
+import "./my-file.css";
 import {CloudDownload, Pencil, Trash} from 'react-bootstrap-icons';
-import fileService from "../services/fileService";
-import RenameFile from "./RenameFile";
+import fileService from "../../services/fileService";
+import RenameFile from "../rename-file/rename-file";
 
 class MyFile extends Component {
 

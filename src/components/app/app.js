@@ -1,11 +1,11 @@
 import React from 'react';
-import './App.css';
-import history from './utils/history';
+import './app.css';
+import history from '../../utils/history';
 import {Route, Router, Switch} from "react-router-dom"
-import Main from "./components/Main";
-import Profile from "./components/Profile";
-import NotFound from "./components/NotFound";
-import MyDisk from "./components/MyDisk";
+import Profile from "../profile/profile";
+import NotFound from "../not-found/not-found";
+import MyDisk from "../my-disk/my-disk";
+import Main from '../main';
 
 function App() {
     return (
